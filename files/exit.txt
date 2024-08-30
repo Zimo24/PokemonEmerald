@@ -1,0 +1,552 @@
+@@ filename = "CertificateENG"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000            ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED            ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30            ;  R12=PC+30
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+sbc r12,lr, #0x2C40           ;  R12=LR-2C40-1
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r12,r12, #0x3FC0          ;  R12=R12+3FC0
+sbc r0,r12, #0xB0             ;  R0=R12-B0-1=DiplomaENG
+
+====================
+
+@@ filename = "CertificateFRA"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000            ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED            ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30            ;  R12=PC+30
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xE30            ;  R12=LR+E30
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xE2             ;  R0=R12+E2=DiplomaFRA
+
+====================
+
+@@ filename = "CertificateGER"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000            ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED            ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30            ;  R12=PC+30
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xE10            ;  R12=LR+E10
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xE2             ;  R0=R12+E2=DiplomaGER
+
+====================
+
+@@ filename = "CertificateITA"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000            ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED            ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30            ;  R12=PC+30
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xE00            ;  R12=LR+E00
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xDE             ;  R0=R12+DE=DiplomaITA
+
+====================
+
+@@ filename = "CertificateSPA"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000            ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED            ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30            ;  R12=PC+30
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xE10            ;  R12=LR+E10
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xD6             ;  R0=R12+D6=DiplomaSPA
+
+====================
+
+@@ filename = "CertificateJAP"
+@@ start = 64
+@@
+
+; LR=080066FF
+; Diploma: 0x08137D25
+; ADD r0, lr, { 0x08137D25 - 0x080066FF } ?
+ADD r0, r14, #0x3b8000
+SUB r0, r0, #0x284000
+SUB r0, r0, #0x2900
+SUB r0, r0, #0xda
+BX r0
+
+====================
+
+@@ filename = "CertificateJAPmod"
+@@ start = 84
+@@
+
+LDR r0, [pc, -{inaccurate_emu ? 0x0 : 0x2}]
+BX r0
+0x08137D25
+
+====================
+
+@@ filename = "WhiteOutENG"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000        ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED        ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30        ;  R12=PC+30
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xDC0        ;  R12=LR+DC0
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xD6         ;  R0=R12+D6=SetCB2WhiteOutENG
+
+====================
+
+@@ filename = "WhiteOutFRA"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000        ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED        ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30        ;  R12=PC+30
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xA10        ;  R12=LR+A10
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xC8         ;  R0=R12+C8=SetCB2WhiteOutFRA
+
+====================
+
+@@ filename = "WhiteOutGER"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000        ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED        ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30        ;  R12=PC+30
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xA10        ;  R12=LR+A10
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xA8         ;  R0=R12+A8=SetCB2WhiteOutGER
+
+====================
+
+@@ filename = "WhiteOutITA"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000        ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED        ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30        ;  R12=PC+30
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xB80        ;  R12=LR+B80
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+sbc r0,r12, #0xDD         ;  R0=R12-DD-1=SetCB2WhiteOutITA
+
+====================
+
+@@ filename = "WhiteOutSPA"
+@@ start = 72
+@@
+
+mvn r11, 0xEE00000        ;  R11=notEE00000=F11FFFFF
+sbc r11, r11, 0xED        ;  R11=R11-ED-1=F11FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+adcs r12,pc, #0x30        ;  R12=PC+30
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+adc r12,lr, #0xB80        ;  R12=LR+B80
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+sbc r0,r12, #0xD5         ;  R0=R12-D5-1=SetCB2WhiteOutSPA
+
+====================
+
+@@ filename = "WhiteOutJAP"
+@@ start = 64
+@@
+
+; LR=080066FF
+; WhiteOut: 0x081378ED
+;ADD r0, lr, { 0x081378ED - 0x080066FF } ?
+ADD r0, r14, #0xee000
+ADD r0, r0, #0x39000
+ADD r0, r0, #0xa100
+ADD r0, r0, #0xee
+BX r0
+
+====================
+
+@@ filename = "CertificateShortENG"
+@@ start = 92
+@@
+
+ADC r12, lr, #0xee000         ; LR=080069E7
+ADC r12, r12, #0x39000
+ADC r12, r12, #0xa200
+ADC r0, r12, #0xce            ; R0=8137CB5=DiplomaENG
+
+====================
+
+@@ filename = "CertificateShortFRA"
+@@ start = 92
+@@
+
+adc r12,lr, #0xE30            ;  R12=LR+E30
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xE2             ;  R0=R12+E2=DiplomaFRA
+
+====================
+
+@@ filename = "CertificateShortGER"
+@@ start = 92
+@@
+
+adc r12,lr, #0xE10              ;  R12=LR+E10
+adc r12,r12, #0xD30000          ;  R12=R12+D30000
+bic r12,r12, #0xC00000          ;  R12=R12 and notC00000
+adc r0,r12, #0xE2               ;  R0=R12+E2=DiplomaGER
+
+====================
+
+@@ filename = "CertificateShortITA"
+@@ start = 92
+@@
+
+adc r12,lr, #0xE00            ;  R12=LR+E00
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xDE             ;  R0=R12+DE=DiplomaITA
+
+====================
+
+@@ filename = "CertificateShortSPA"
+@@ start = 92
+@@
+
+adc r12,lr, #0xE10            ;  R12=LR+E10
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xD6             ;  R0=R12+D6=DiplomaSPA
+
+====================
+
+@@ filename = "CertificateShortJAP"
+@@ start = 92
+@@
+
+ADD r0, r14, #0x3b8000
+SUB r0, r0, #0x284000
+SUB r0, r0, #0x2900
+SUB r0, r0, #0xda
+
+====================
+
+@@ filename = "WhiteOutShortENG"
+@@ start = 92
+@@
+
+adc r12,lr, #0xDC0        ;  R12=LR+DC0
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xD6         ;  R0=R12+D6=SetCB2WhiteOutENG
+
+====================
+
+@@ filename = "WhiteOutShortFRA"
+@@ start = 92
+@@
+
+adc r12,lr, #0xA10        ;  R12=LR+A10
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xC8         ;  R0=R12+C8=SetCB2WhiteOutFRA
+
+====================
+
+@@ filename = "WhiteOutShortGER"
+@@ start = 92
+@@
+
+adc r12,lr, #0xA10        ;  R12=LR+A10
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xA8         ;  R0=R12+A8=SetCB2WhiteOutGER
+
+====================
+
+@@ filename = "WhiteOutShortITA"
+@@ start = 92
+@@
+
+adc r12,lr, #0xB80        ;  R12=LR+B80
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+sbc r0,r12, #0xDD         ;  R0=R12-DD-1=SetCB2WhiteOutITA
+
+====================
+
+@@ filename = "WhiteOutShortSPA"
+@@ start = 92
+@@
+
+adc r12,lr, #0xB80        ;  R12=LR+B80
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+sbc r0,r12, #0xD5         ;  R0=R12-D5-1=SetCB2WhiteOutSPA
+
+====================
+
+@@ filename = "WhiteOutShortJAP"
+@@ start = 92
+@@
+
+ADD r0, r14, #0xee000
+ADD r0, r0, #0x39000
+ADD r0, r0, #0xa100
+ADD r0, r0, #0xee
+
+====================
+
+@@ filename = "CertificateFullENG"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30           ;  R12=&Box14Name + 3
+mvn r11, 0xEE                 ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000      ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+
+ADC r12, lr, #0xee000         ; LR=080069E7
+ADC r12, r12, #0x39000
+ADC r12, r12, #0xa200
+ADC r0, r12, #0xce            ; R0=8137CB5=DiplomaENG
+0
+
+====================
+
+@@ filename = "CertificateFullFRA"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30           ;  R12=&Box14Name + 3
+mvn r11, 0xEE                 ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000      ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xE30            ;  R12=LR+E30
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xE2             ;  R0=R12+E2=DiplomaFRA
+0                             ;  Fill box 14 with space
+
+====================
+
+@@ filename = "CertificateFullGER"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30           ;  R12=&Box14Name + 3
+mvn r11, 0xEE                 ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000      ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xE10            ;  R12=LR+E10
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xE2             ;  R0=R12+E2=DiplomaGER
+0                             ;  Fill box 14 with space
+
+====================
+
+@@ filename = "CertificateFullITA"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30           ;  R12=&Box14Name + 3
+mvn r11, 0xEE                 ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000      ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xE00            ;  R12=LR+E00
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xDE             ;  R0=R12+DE=DiplomaITA
+0                             ;  Fill box 14 with space
+
+====================
+
+@@ filename = "CertificateFullSPA"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30           ;  R12=&Box14Name + 3
+mvn r11, 0xEE                 ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000      ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xE10            ;  R12=LR+E10
+adc r12,r12, #0xD30000        ;  R12=R12+D30000
+bic r12,r12, #0xC00000        ;  R12=R12 and notC00000
+adc r0,r12, #0xD6             ;  R0=R12+D6=DiplomaSPA
+0                             ;  Fill box 14 with space
+
+====================
+
+@@ filename = "CertificateFullJAP"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30           ;  R12=&Box14Name + 3
+mvn r11, 0xEE                 ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000      ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+
+ADD r0, r14, #0x3b8000
+SUB r0, r0, #0x284000
+SUB r0, r0, #0x2900
+SUB r0, r0, #0xda
+0
+
+====================
+
+@@ filename = "WhiteOutFullENG"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30       ;  R12=&Box14Name + 3
+mvn r11, 0xEE             ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000  ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xDC0        ;  R12=LR+DC0
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xD6         ;  R0=R12+D6=SetCB2WhiteOutENG
+0
+
+====================
+
+@@ filename = "WhiteOutFullFRA"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30       ;  R12=&Box14Name + 3
+mvn r11, 0xEE             ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000  ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xA10        ;  R12=LR+A10
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xC8         ;  R0=R12+C8=SetCB2WhiteOutFRA
+0
+
+====================
+
+@@ filename = "WhiteOutFullGER"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30       ;  R12=&Box14Name + 3
+mvn r11, 0xEE             ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000  ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xA10        ;  R12=LR+A10
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+adc r0,r12, #0xA8         ;  R0=R12+A8=SetCB2WhiteOutGER
+0
+
+====================
+
+@@ filename = "WhiteOutFullITA"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30       ;  R12=&Box14Name + 3
+mvn r11, 0xEE             ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000  ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xB80        ;  R12=LR+B80
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+sbc r0,r12, #0xDD         ;  R0=R12-DD-1=SetCB2WhiteOutITA
+0
+
+====================
+
+@@ filename = "WhiteOutFullSPA"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30       ;  R12=&Box14Name + 3
+mvn r11, 0xEE             ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000  ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000   ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!       ;  Store bx r0 opcode in [r12]
+
+adc r12,lr, #0xB80        ;  R12=LR+B80
+adc r12,r12, #0xD30000    ;  R12=R12+D30000
+bic r12,r12, #0xC00000    ;  R12=R12 and notC00000
+sbc r0,r12, #0xD5         ;  R0=R12-D5-1=SetCB2WhiteOutSPA
+0
+
+====================
+
+@@ filename = "WhiteOutFullJAP"
+@@ start = 64
+@@
+
+adcs r12, pc, #0x30           ;  R12=&Box14Name + 3
+mvn r11, 0xEE                 ;  R11=notEE=FFFFFF11
+bic r11, r11, #0xEE00000      ;  R11=R11 and notEE00000=F12FFF11
+sbc r11, r11, 0xFF00000       ;  R11=R11-FF00000-1=E12FFF10="bx r0" opcode
+str r11, [r12, #0]!           ;  Store bx r0 opcode in [r12]
+
+ADD r0, r14, #0xee000
+ADD r0, r0, #0x39000
+ADD r0, r0, #0xa100
+ADD r0, r0, #0xee
+0
+
+====================
+
+@@ filename = "Bootstrapped"
+@@ start = 116
+@@

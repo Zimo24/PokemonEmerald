@@ -1,0 +1,59 @@
+@@ title = "Change and freeze PRNG Seed"
+@@ author = "E-Sh4rk & Shao"
+@@ exit = "Bootstrapped"
+
+seed = 0x1234ABCD     ; Should not be 0
+; The seed to write above is NOT directly the seed you obtain using PokeFinder.
+; You first have to compute the real target seed using this tool: https://e-sh4rk.github.io/CodeGenerator/scripts/seed/
+
+; In general: Exiting the pokemon menu (or the bag, or the pokedex, etc) advances 3 cycles due the the ASLR.
+; Additionaly, moving npc's and some other map elements will advance some cycles when closing the menu,
+; and will also advance some cycles regularly (more or less) when not in a menu/animation/battle.
+
+; Method 1 mons with NPCs in the vicinity like Wynaut egg and fossils might be less consistent as a result,
+; but for those without NPCs the results are very consistent.
+
+@@
+
+; As this code uses the exit code Bootstrapped,
+; you have to setup the certificate exit code bootstrap before using it.
+
+; For stationnary pokemons, once the code has been executed and that you have
+; exited the menu, you should start the encounter as soon as possible to
+; avoid additional rng cycles due to the map events (moving npc's, etc).
+
+; For wild pokemons, you should use sweet scent just after executing the code,
+; without exiting the menu to avoid additional cycles. For that,
+; you must have a stable way of triggering ACE (cf. https://e-sh4rk.github.io/ACE3/emerald/getting-started/stable-ace/),
+; then you should capture a new pokemon and rename it ␣ ␣ D n ’ J k l ␣ ␣
+; and place it in the pc, in the slot just after your exit code bootstrap
+; (it should not be the last slot of box 14 and the next slot should be free).
+; This will change the exit routine so that it stays in the summary page
+; instead of opening the certificate. More precisely, it does the following:
+; adcs r0, lr, 0
+; ldrh r12, [pc], 0x44
+; Doing that will prevent closing the menu and having to open it back for the sweet scent method,
+; thus it avoids some additional cycles advance that might have depended on the map.
+; Note that you shouldn't stay too long in the summary or it will crash (exit it with B).
+; Also note that if you are using a semi-stable species such as the french 0x40ED,
+; you might need to open the summary of an adjacent pokemon, go to the moves
+; page, and then switch to the 0x40ED moves page to avoid a crash.
+
+
+
+; gBattleTypeFlags: 02022fec
+; bit 24,21,20,19,18,17,16 or 1 (LE) of gBattleTypeFlags must be activated
+movs r11, 0x0A20 ;
+movs r12, 0x02022fee ?
+strh r11, [r12], 0xA
+
+; inBattle: 30026F9   ; 30026F8 = 02022fee + FDF70A
+; bit 1 of inBattle must be activated (but preferably not bit 0 and 2)
+adc r12, 0xFDF700 ?
+strh r11, [r12], 0xc8
+
+; PRNG state location: 3005D80 = 30026F8 + 3688
+adc r12, 0x35c0 ?
+
+movs r11, { seed }  ?
+str r11, [r12]!                %%  Store new seed in PRNG state location

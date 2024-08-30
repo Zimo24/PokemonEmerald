@@ -1,0 +1,45 @@
+@@ title = "Thumb->ARM Bootstrap (ENG)"
+@@ author = "Merrp"
+@@ exit = "CertificateShortENG"
+@@
+
+; Adapted from https://pastebin.com/Sz2Aiu6p
+
+; This code must be executed after any code that uses the exit code CertificateFullENG.
+; You should not modify the names of the boxes 11-14 between (they are the same for this code).
+; Then, put any pokemon with the name [x♂zN 6FFxC] in the box 10 slot 20.
+; At this point, you should save your game and reload your save in order to reinitialize the value of some registers.
+; Then, write this code (boxes 1-10) and execute it by triggering ACE with your Thumb ACE species.
+; The pokemon in box 10 slot 20 will be transformed into a bad egg.
+; This bad egg must be placed somewhere in Box 12 (not the first row), Box 13 or Box 14
+; when you want to execute an ARM ACE code by using a Thumb ACE species.
+
+; NOTE: If you plan to use this code with 0x40E9, be aware that the 0x40E9 species is only stable
+; in its non-shiny form, thus you shouldn't obtain 0x40E9 with the code "Create Pokemon species from nothing".
+; If you want a stable shiny Thumb ACE species, you can use 0x45BB, however only the move and contest summary pages
+; are stable, so you might need to open the summary of an adjacent pokemon, go to the moves page,
+; and then switch to the 0x45BB moves page to avoid a crash).
+
+0xC8EEB5EC
+; PUSH r2-r3,r5-r7,lr       B5EC @ preserve necessary registers
+; LDMIA r0!,r1-r3,r5-r7     C8EE @ do not touch r4!
+
+0xC0C0A700
+; ADD r7,pc,nn              A700
+; STMIA r0!,r6,r7           C0C0 @ store new jump address
+
+0xD200D2FF ; THUMB Filler
+
+0x0000BDEC
+; POP r2-r3,r5-r7,pc      BDEC
+
+sbc r11,pc,0x2940   ; r11=&PID-0x35
+strh r10,[r11,54]
+strh r10,[r11,56]
+strh r10,[r11,58]
+strh r10,[r11,59]!
+strh r12,[r11,14]!  ; r11=&OT
+movs r12,0x3B0      ; r12=000003B0   
+adc r12,0xDF0000    ; r12=00DF03B0
+adc r12,0xE000000E  ; r12=E0DF03BE (ldrh! r12, [pc+xx])
+str r12,[r11]!      ; store OT

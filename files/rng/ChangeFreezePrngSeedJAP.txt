@@ -1,0 +1,54 @@
+@@ title = "Change and freeze PRNG Seed (JAP)"
+@@ author = "E-Sh4rk & Shao"
+@@ exit = "Bootstrapped"
+
+seed = 0x1234ABCD     ; Should not be 0
+; The seed to write above is NOT directly the seed you obtain using PokeFinder.
+; You first have to compute the real target seed using this tool: https://e-sh4rk.github.io/CodeGenerator/scripts/seed/
+
+; In general: Exiting the pokemon menu (or the bag, or the pokedex, etc) advances 3 cycles due the the ASLR.
+; Additionaly, moving npc's and some other map elements will advance some cycles when closing the menu,
+; and will also advance some cycles regularly (more or less) when not in a menu/animation/battle.
+
+; Method 1 mons with NPCs in the vicinity like Wynaut egg and fossils might be less consistent as a result,
+; but for those without NPCs the results are very consistent.
+
+@@
+
+; As this code uses the exit code Bootstrapped,
+; you have to setup the certificate exit code bootstrap before using it.
+
+; For stationnary pokemons, once the code has been executed and that you have
+; exited the menu, you should start the encounter as soon as possible to
+; avoid additional rng cycles due to the map events (moving npc's, etc).
+
+; For wild pokemons, you should use sweet scent just after executing the code,
+; without exiting the menu to avoid additional cycles. For that,
+; you must have a stable way of triggering ARM ACE (for instance 0x079D),
+; then you should generate a new raw pokemon of species 0xFF, nickname it _ _ D n
+; and place it in the pc, in the slot just after your exit code bootstrap.
+; This will change the exit routine so that it stays in the summary page
+; instead of opening the certificate. More precisely, it does the following:
+; adcs r0, lr, 0
+; Doing that will prevent closing the menu and having to open it back for the sweet scent method,
+; thus it avoids some additional cycles advance that might have depended on the map.
+; Note that you shouldn't stay too long in the summary or it will crash (exit it with B).
+
+
+
+; gBattleTypeFlags: 02022C90
+; bit 24,21,20,19,18,17,16 or 1 (LE) of gBattleTypeFlags must be activated
+mov r11, 0x0A20 ;
+mov r12, 0x02022c92 ?
+strh r11, [r12], 0x6
+
+; inBattle: 3002799   ; 3002798 = 02022c92 + FDFB06
+; bit 1 of inBattle must be activated (but preferably not bit 0 and 2)
+add r12, 0xFDFB00 ?
+strh r11, [r12], 0x4A
+
+; PRNG state location: 3005AE0 = 3002798 + 3348
+add r12, 0x3300 ?
+
+mov r11, { seed }  ?
+str r11, [r12]!                %%  Store new seed in PRNG state location

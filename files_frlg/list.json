@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Change PRNG seed and teleport",
+    "eng1": "rng/SeedChangeAndWarpENG.txt",
+    "eng0": "rng/SeedChangeAndWarpENG.txt",
+    "fra": "rng/SeedChangeAndWarpEU.txt",
+    "ger": "rng/SeedChangeAndWarpEU.txt",
+    "spa": "rng/SeedChangeAndWarpEU.txt",
+    "ita": "rng/SeedChangeAndWarpEU.txt",
+    "jap0": "rng/SeedChangeAndWarpJP0.txt",
+    "jap1": "rng/SeedChangeAndWarpJP1.txt",
+    "game": ["fr", "lg"],
+    "cat": ["rng"]
+  },
+  {
+    "name": "Change TID and SID",
+    "eng1": "rng/tidsid.txt",
+    "eng0": "rng/tidsid.txt",
+    "fra": "rng/tidsid.txt",
+    "ger": "rng/tidsid.txt",
+    "spa": "rng/tidsid.txt",
+    "ita": "rng/tidsid.txt",
+    "game": ["fr", "lg"],
+    "cat": ["rng"]
+  },
+  {
+    "name": "Change Roamer Species",
+    "eng1": "misc/ChangeRoamerSpecies.txt",
+    "eng0": "misc/ChangeRoamerSpecies.txt",
+    "fra": "misc/ChangeRoamerSpecies.txt",
+    "ger": "misc/ChangeRoamerSpecies.txt",
+    "spa": "misc/ChangeRoamerSpecies.txt",
+    "ita": "misc/ChangeRoamerSpecies.txt",
+    "jap0": "misc/ChangeRoamerSpeciesJAP.txt",
+    "jap1": "misc/ChangeRoamerSpeciesJAP.txt",
+    "game": ["fr", "lg"],
+    "cat": ["misc"]
+  },
+  {
+    "name": "Change Roamer IVs",
+    "eng1": "misc/ChangeRoamerIVs.txt",
+    "eng0": "misc/ChangeRoamerIVs.txt",
+    "fra": "misc/ChangeRoamerIVs.txt",
+    "ger": "misc/ChangeRoamerIVs.txt",
+    "spa": "misc/ChangeRoamerIVs.txt",
+    "ita": "misc/ChangeRoamerIVs.txt",
+    "jap0": "misc/ChangeRoamerIVsJAP.txt",
+    "jap1": "misc/ChangeRoamerIVsJAP.txt",
+    "game": ["fr", "lg"],
+    "cat": ["misc"]
+  },
+  {
+    "name": "Change Roamer PID",
+    "eng1": "misc/ChangeRoamerPID.txt",
+    "eng0": "misc/ChangeRoamerPID.txt",
+    "fra": "misc/ChangeRoamerPID.txt",
+    "ger": "misc/ChangeRoamerPID.txt",
+    "spa": "misc/ChangeRoamerPID.txt",
+    "ita": "misc/ChangeRoamerPID.txt",
+    "jap0": "misc/ChangeRoamerPIDJAP.txt",
+    "jap1": "misc/ChangeRoamerPIDJAP.txt",
+    "game": ["fr", "lg"],
+    "cat": ["misc"]
+  },
+  {
+    "name": "Read Pokemon PID",
+    "eng1": "misc/ReadPIDfromPartySlot4toPartySlot3.txt",
+    "eng0": "misc/ReadPIDfromPartySlot4toPartySlot3.txt",
+    "game": ["fr", "lg"],
+    "cat": ["misc"]
+  }
+]
